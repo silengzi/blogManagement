@@ -1,23 +1,59 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import articleManage from '@/views/articleManage/index.vue'
+import imageManage from '@/views/imageManage/index.vue'
+import introManage from '@/views/introManage/index.vue'
+import login from '@/views/login/index.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: '/login',
+    name: 'login',
+    component: login,
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+    path: '/',
+    name: 'home',
+    component: () => import('../layout'),
+    redirect: '/articleManage',
+    children: [{
+      path: 'articleManage',
+      name: 'articleManage',
+      component: articleManage,
+      meta: {title: '文章管理'}
+    }]
+  },
+  {
+    path: '/',
+    name: 'image',
+    component: () => import('../layout'),
+    // redirect: '/articleManage',
+    children: [{
+      path: 'imageManage',
+      name: 'imageManage',
+      component: imageManage,
+      meta: {
+        title: '图片管理'
+      }
+    }]
+  },
+  {
+    path: '/',
+    name: 'intro',
+    component: () => import('../layout'),
+    // redirect: '/articleManage',
+    children: [{
+      path: 'introManage',
+      name: 'introManage',
+      component: introManage,
+      meta: {
+        title: '个人介绍'
+      }
+    }]
+  },
+  
 ]
 
 const router = new VueRouter({
