@@ -1,4 +1,4 @@
-[
+export const mockData = [
     {
         "title": "fixed位置偏移的问题", // 标题
         "summary": "关于fixed位置偏移的问题做出探讨",   // 摘要
