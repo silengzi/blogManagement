@@ -1,94 +1,128 @@
 <template>
   <div>
-    <el-form inline>
+    <el-form inline v-show="scene==0">
         <el-form-item>
             <el-input placeholder="文章名称"></el-input>
         </el-form-item>
         <el-button type="primary">搜索</el-button>
         <el-button>清空</el-button>
     </el-form>
-    <div style="margin-bottom: 20px">
-        <el-button type="primary">添 加</el-button>
-        <el-button type="danger">批量删除</el-button>
+    <div v-show="scene==0">
+        <div style="margin-bottom: 20px">
+            <el-button type="primary">添 加</el-button>
+            <el-button type="danger">批量删除</el-button>
+        </div>
+        <el-table border :data="tableData">
+            <el-table-column
+                type="selection"
+                align="center"
+            ></el-table-column>
+            <el-table-column
+                type="index"
+                label="序号"
+                width="90"
+                align="center"
+            ></el-table-column>
+            <el-table-column
+                label="文章名称"
+                prop="title"
+                align="center"
+            ></el-table-column>
+            <el-table-column
+                prop="summary"
+                label="文章概述"
+                align="center"
+            ></el-table-column>
+            <el-table-column
+                prop="create_time"
+                label="创建时间"
+                align="center"
+            ></el-table-column>
+            <el-table-column
+                label="操作"
+                align="center"
+                class="operate"
+            >
+                <template slot-scope="{row, $index}">
+                    <el-button
+                        type="warning"
+                        icon="el-icon-edit"
+                        size="mini"
+                        title="编辑"
+                        @click="editArticle(row)"
+                    ></el-button>
+                    <el-button
+                        type="primary"
+                        icon="el-icon-info"
+                        size="mini"
+                        title="详情"
+                        @click="handleDetail(row)"
+                    ></el-button>
+                    <el-button
+                        type="danger"
+                        icon="el-icon-delete"
+                        size="mini"
+                        title="删除"
+                    ></el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+        <el-pagination
+            :current-page="page"
+            :total="total"
+            :page-size="limit"
+            :page-sizes="[3, 10, 20]"
+            style="padding: 20px 0"
+            layout="prev, pager, next, jumper, ->, sizes, total"
+        ></el-pagination>
     </div>
-    <el-table border :data="tableData">
-        <el-table-column
-            type="selection"
-            align="center"
-        ></el-table-column>
-        <el-table-column
-            type="index"
-            label="序号"
-            width="90"
-            align="center"
-        ></el-table-column>
-        <el-table-column
-            label="文章名称"
-            prop="title"
-            align="center"
-        ></el-table-column>
-        <el-table-column
-            prop="summary"
-            label="文章概述"
-            align="center"
-        ></el-table-column>
-        <el-table-column
-            prop="create_time"
-            label="创建时间"
-            align="center"
-        ></el-table-column>
-        <el-table-column
-            label="操作"
-            align="center"
-        >
-            <el-button
-                type="warning"
-                icon="el-icon-edit"
-                size="mini"
-            ></el-button>
-            <el-button
-                type="primary"
-                icon="el-icon-info"
-                size="mini"
-            ></el-button>
-            <el-button
-                type="danger"
-                icon="el-icon-delete"
-                size="mini"
-            ></el-button>
-        </el-table-column>
-    </el-table>
-    <el-pagination
-        :current-page="page"
-        :total="total"
-        :page-size="limit"
-        :page-sizes="[3, 10, 20]"
-        style="padding: 20px 0"
-        layout="prev, pager, next, jumper, ->, sizes, total"
-    ></el-pagination>
+    <articleForm
+        v-show="scene==1"
+        @changeScene="changeScene"
+    ></articleForm>
+    <articleDetail
+        v-show="scene==2"
+    ></articleDetail>
   </div>
 </template>
 
 <script>
 import {mockData} from '../../../public/mock'
+import articleForm from './articleForm'
+import articleDetail from './articleDetail'
 export default {
   name: '',
+  components: {
+    articleForm,
+    articleDetail
+  },
   data() {
     return {
         tableData: [],
         page: 1,
         total: 0,
         limit: 3,
+        scene: 0,
     };
   },
   created() {
     this.tableData = mockData.slice().concat(mockData, mockData, mockData)
   },
   methods: {
-    
+    editArticle(row) {
+        this.scene = 1
+        
+    },
+    handleDetail(row) {
+        this.scene = 2
+    },
+    changeScene(scene) {
+        this.scene = scene
+    }
   }
 };
 </script>
 
-<style scoped lang="">
+<style scoped lang="less">
+    
 </style>

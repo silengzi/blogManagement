@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import articleManage from '@/views/articleManage/index.vue'
+// import articleForm from '@/views/articleManage/articleForm/index.vue'
+// import articleDetail from '@/views/articleManage/articleDetail/index.vue'
 import imageManage from '@/views/imageManage/index.vue'
 import introManage from '@/views/introManage/index.vue'
 import login from '@/views/login/index.vue'
@@ -22,7 +24,21 @@ const routes = [
       path: 'articleManage',
       name: 'articleManage',
       component: articleManage,
-      meta: {title: '文章管理'}
+      meta: {title: '文章管理'},
+      // children: [
+      //   {
+      //     path: 'articleForm',
+      //     name: 'articleForm',
+      //     component: articleForm,
+      //     meta: {title: '文章编辑'}
+      //   },
+      //   {
+      //     path: 'articleDetail',
+      //     name: 'articleDetail',
+      //     component: articleDetail,
+      //     meta: {title: '文章详情'}
+      //   },
+      // ]
     }]
   },
   {

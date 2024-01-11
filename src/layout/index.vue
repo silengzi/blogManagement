@@ -17,7 +17,10 @@
         <el-aside width="210px" style="background-color: rgb(238, 241, 246)">
             <el-menu :default-openeds="['1']">
                 <el-submenu index="1">
-                    <template slot="title"><i class="el-icon-s-claim"/>博客</template>
+                    <template slot="title">
+                        <i class="el-icon-s-claim"/>
+                        <span style="font-size: 16px;">博客</span>
+                    </template>
                     <el-menu-item @click="toArticleManage"><i class="el-icon-s-order"/>文章管理</el-menu-item>
                     <el-menu-item @click="toImageManage"><i class="el-icon-picture"/>图片管理</el-menu-item>
                     <el-menu-item @click="toIntroManage"><i class="el-icon-user-solid"/>个人介绍</el-menu-item>
