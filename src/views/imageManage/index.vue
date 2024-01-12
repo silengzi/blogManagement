@@ -1,58 +1,99 @@
 <template>
-    <div>
-        <el-form inline>
-        <el-form-item>
-            <el-input placeholder="图片名称"></el-input>
-        </el-form-item>
-        <el-button type="primary">搜索</el-button>
-        <el-button>清空</el-button>
-    </el-form>
+  <div>
+    <blogManageTopNav></blogManageTopNav>
     <div style="margin-bottom: 20px">
-        <el-button type="primary">添 加</el-button>
-        <el-button type="danger">批量删除</el-button>
+      <el-button type="primary">添 加</el-button>
+      <el-button type="danger">批量删除</el-button>
     </div>
-    <el-table border>
-        <el-table-column
-            type="selection"
-            align="center"
-        ></el-table-column>
-        <el-table-column
-            type="index"
-            label="序号"
-            width="90"
-            align="center"
-        ></el-table-column>
-        <el-table-column
-            label="图片名称"
-            prop="name"
-            align="center"
-        ></el-table-column>
-        <el-table-column
-            label="缩略图"
-            align="center"
-        ></el-table-column>
-        <el-table-column
-            label="操作"
-            align="center"
-        ></el-table-column>
+    <el-table border :data="imageList">
+      <el-table-column
+        type="selection"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        type="index"
+        label="序号"
+        width="90"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        label="图片名称"
+        prop="name"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        label="默认图片"
+        align="center"
+      >
+        <template slot-scope="{row, $index}">
+            <img :src="row.defaultImg" alt="" style="width: 70px; height: 70px; object-fit: cover;">
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="操作"
+        align="center"
+      >
+        <template slot-scope="{row}">
+            <el-button
+                type="primary"
+                icon="el-icon-info"
+                size="mini"
+                title="图片详情"
+            ></el-button>
+            <el-button
+                type="danger"
+                icon="el-icon-delete"
+                size="mini"
+                title="删除"
+            ></el-button>
+        </template>
+      </el-table-column>
     </el-table>
-    </div>
+    <el-pagination
+        :current-page="page"
+        :total="total"
+        :page-size="limit"
+        :page-sizes="[3, 10, 20]"
+        layout="prev, pager, next, jumper, ->, sizes, total"
+        style="padding: 20px 0"
+    ></el-pagination>
+    
+  </div>
 </template>
 
 <script>
+import blogManageTopNav from '@/components/blogManageTopNav/index.vue'
 export default {
-    name:'',
-    data() {
-        return {
-
-        };
-    },
-    methods: {
-
-    }
+  name: '',
+  components: {
+    blogManageTopNav
+  },
+  data() {
+    return {
+        imageList: [],
+        page: 1,
+        total: 0,
+        limit: 3,
+        dialogUserVisible: false
+    };
+  },
+  mounted() {
+    this.imageList = [
+        {
+            name: '头像',
+            defaultImg: require('@/assets/imgs/head.jpg')
+        },
+        {
+            name: '登录',
+            defaultImg: require('@/assets/imgs/login.jpg')
+        },
+    ]
+  },
+  methods: {
+    
+  }
 };
 </script>
 
 <style scoped lang="">
-
 </style>

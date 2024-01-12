@@ -18,7 +18,7 @@
             <el-menu :default-openeds="['1']">
                 <el-submenu index="1">
                     <template slot="title">
-                        <i class="el-icon-s-claim"/>
+                        <i class="el-icon-document"/>
                         <span style="font-size: 16px;">博客</span>
                     </template>
                     <el-menu-item @click="toArticleManage"><i class="el-icon-s-order"/>文章管理</el-menu-item>
