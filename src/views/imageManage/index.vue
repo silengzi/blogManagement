@@ -69,7 +69,8 @@
           style="padding: 20px 0"
       ></el-pagination>
     </div>
-    <imageEdit v-show="scene==1"></imageEdit>
+    <imageEdit v-show="scene==1" @changeScene="changeScene"></imageEdit>
+    <!-- 抽屉模式 -->
     <el-drawer :visible.sync="show" size="50%" v-for="(i, index) in imageList" :key="i.id">
       <el-row>
         <el-col :span="5">名称</el-col>
@@ -129,6 +130,9 @@ export default {
     },
     getImageInfo(row) {
       this.show = true
+    },
+    changeScene({scene}) {
+      this.scene = scene
     }
   }
 };

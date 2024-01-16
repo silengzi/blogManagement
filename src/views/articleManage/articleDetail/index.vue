@@ -1,6 +1,9 @@
 <template>
-    <div class="articleDetail">
-        <v-md-editor :value="text" mode="preview"></v-md-editor>
+    <div>
+        <el-button type="info" size="mini" @click="goBack">返回</el-button>
+        <el-card class="articleDetail">
+            <v-md-editor :value="text" mode="preview"></v-md-editor>
+        </el-card>
     </div>
 </template>
 
@@ -13,7 +16,9 @@ export default {
         };
     },
     methods: {
-
+        goBack() {
+            this.$emit("changeScenes", 0)
+        }
     },
     mounted() {
         this.text = `## 我不好 - 张艺兴 (LAY)
@@ -80,11 +85,15 @@ Oh baby
 </script>
 
 <style scoped lang="less">
+    .el-button {
+        margin-bottom: 30px;
+    }
     .articleDetail {
         width: 1000px;
         margin: 0 auto;
-        border: 1px solid #eee;
+        // border: 1px solid #eee;
         text-align: center;
-        
+        overflow: hidden;
+
     }
 </style>

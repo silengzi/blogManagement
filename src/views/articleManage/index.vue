@@ -77,7 +77,7 @@
       v-show="scene==1"
       @changeScene="changeScene"
     ></articleForm>
-    <articleDetail v-show="scene==2"></articleDetail>
+    <articleDetail v-show="scene==2" @changeScenes="changeScenes"></articleDetail>
   </div>
 </template>
 
@@ -113,7 +113,10 @@ export default {
     handleDetail(row) {
       this.scene = 2
     },
-    changeScene(scene) {
+    changeScene({scene}) {
+      this.scene = scene
+    },
+    changeScenes(scene) {
       this.scene = scene
     }
   }

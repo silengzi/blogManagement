@@ -76,7 +76,7 @@
       </el-form>
       <div slot="footer">
         <el-button type="primary">保 存</el-button>
-        <el-button>取 消</el-button>
+        <el-button @click="resetRoleList">取 消</el-button>
       </div>
     </el-dialog>
     <el-dialog title="编辑用户" :visible.sync="dialogUserVisible">
@@ -89,7 +89,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button>取 消</el-button>
+        <el-button @click="cancel">取 消</el-button>
         <el-button type="primary">确 定</el-button>
       </div>
     </el-dialog>
@@ -126,12 +126,18 @@ export default {
     ]
   },
   methods: {
+    showAssignRole(row) {
+      this.dialogRoleVisible = true
+    },
     showUpdateUser(row) {
       this.dialogUserVisible = true
     },
-    showAssignRole(row) {
-      this.dialogRoleVisible = true
-    }
+    resetRoleList() {
+      this.dialogRoleVisible = false
+    },
+    cancel() {
+      this.dialogUserVisible = false
+    },
   }
 };
 </script>
