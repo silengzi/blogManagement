@@ -71,20 +71,20 @@
     </div>
     <imageEdit v-show="scene==1" @changeScene="changeScene"></imageEdit>
     <!-- 抽屉模式 -->
-    <el-drawer :visible.sync="show" size="50%" v-for="(i, index) in imageList" :key="i.id">
+    <el-drawer :visible.sync="show" size="50%">
       <el-row>
         <el-col :span="5">名称</el-col>
-        <el-col  :span="16">{{i.name}}</el-col>
+        <el-col  :span="16">{{imageDetailRow.name}}</el-col>
       </el-row>
       <el-row >
         <el-col :span="5">描述</el-col>
-        <el-col  :span="16">aa</el-col>
+        <el-col  :span="16">{{imageDetailRow.desc}}</el-col>
       </el-row>
       <el-row >
         <el-col :span="5">图片</el-col>
         <el-col  :span="16">
           <!-- <el-carousel height="210px"> -->
-            <img :src="i.defaultImg" alt="" style="width: 100%; height: 200px; object-fit: cover;">
+            <img :src="imageDetailRow.url" alt="" style="width: 100%; height: 200px; object-fit: cover;">
           <!-- </el-carousel> -->
         </el-col>
       </el-row>
@@ -110,16 +110,21 @@ export default {
         dialogUserVisible: false,
         scene: 0,
         show: false,
+        imageDetailRow: {
+          
+        }
     };
   },
   mounted() {
     this.imageList = [
         {
             name: '头像',
+            desc: '这是头像图片',
             defaultImg: require('@/assets/imgs/head.jpg')
         },
         {
             name: '登录',
+            desc: '这是登录页背景图',
             defaultImg: require('@/assets/imgs/login.jpg')
         },
     ]
@@ -129,6 +134,9 @@ export default {
       this.scene = 1
     },
     getImageInfo(row) {
+      this.imageDetailRow.name = row.name
+      this.imageDetailRow.desc = row.desc
+      this.imageDetailRow.url = row.defaultImg
       this.show = true
     },
     changeScene({scene}) {

@@ -69,8 +69,12 @@
         </el-form-item>
         <el-form-item label="角色列表">
           <el-checkbox>全选</el-checkbox>
-          <el-checkbox-group>
-
+          <el-checkbox-group v-model="checkList">
+            <el-checkbox label="复选框 A"></el-checkbox>
+            <el-checkbox label="复选框 B"></el-checkbox>
+            <el-checkbox label="复选框 C"></el-checkbox>
+            <el-checkbox label="禁用" disabled></el-checkbox>
+            <el-checkbox label="选中且禁用" disabled></el-checkbox>
           </el-checkbox-group>
         </el-form-item>
       </el-form>
@@ -111,6 +115,7 @@ export default {
       limit: 3,
       dialogUserVisible: false,
       dialogRoleVisible: false,
+      checkList: ['复选框 A']
     };
   },
   mounted() {

@@ -118,7 +118,7 @@ export default {
 
 <style scoped lang="less">
     .layout {
-        min-height: 100%;
+        height: 100vh;
         // .leftNav {
         //     width: 210px;
         //     height: 100%;
