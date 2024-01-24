@@ -8,7 +8,7 @@
       </div>
       <el-table
         border
-        :data="tableData"
+        :data="$store.state.allArticle"
       >
         <el-table-column
           type="selection"
@@ -86,6 +86,7 @@ import { mockData } from '../../../public/mock'
 import articleForm from './articleForm'
 import articleDetail from './articleDetail'
 import blogManageTopNav from '@/components/blogManageTopNav/index.vue'
+import reqAllArticle from '@/api/index'
 export default {
   name: '',
   components: {
@@ -103,12 +104,14 @@ export default {
     };
   },
   created() {
-    this.tableData = mockData.slice().concat(mockData, mockData, mockData)
+    // this.tableData = mockData.slice().concat(mockData, mockData, mockData)
+  },
+  mounted() {
+    this.getAllArticleData()
   },
   methods: {
     editArticle(row) {
       this.scene = 1
-
     },
     handleDetail(row) {
       this.scene = 2
@@ -118,6 +121,13 @@ export default {
     },
     changeScenes(scene) {
       this.scene = scene
+    },
+    // async getArticleList() {
+    //   let result = await this.reqAllArticle()
+    //   console.log(result)
+    // }
+    getAllArticleData() {
+      this.$store.dispatch("getAllArticle")
     }
   }
 };
