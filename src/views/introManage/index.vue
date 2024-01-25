@@ -5,7 +5,7 @@
       <el-button type="primary">添 加</el-button>
       <el-button type="danger">批量删除</el-button>
     </div>
-    <el-table border :data="introList">
+    <el-table border :data="$store.state.allUser">
       <el-table-column
         type="selection"
         align="center"
@@ -19,6 +19,11 @@
       <el-table-column
         label="用户名称"
         prop="name"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        label="用户年龄"
+        prop="age"
         align="center"
       ></el-table-column>
       <el-table-column
@@ -109,7 +114,7 @@ export default {
   },
   data() {
     return {
-      introList: [],
+      // introList: [],
       page: 1,
       total: 0,
       limit: 3,
@@ -119,16 +124,17 @@ export default {
     };
   },
   mounted() {
-    this.introList = [
-      {
-        name: '四棱子',
-        permission: '没有权限'
-      },
-      {
-        name: 'layL',
-        permission: '全部开放'
-      },
-    ]
+    // this.introList = [
+    //   {
+    //     name: '四棱子',
+    //     permission: '没有权限'
+    //   },
+    //   {
+    //     name: 'layL',
+    //     permission: '全部开放'
+    //   },
+    // ],
+    this.getUserData()
   },
   methods: {
     showAssignRole(row) {
@@ -143,6 +149,9 @@ export default {
     cancel() {
       this.dialogUserVisible = false
     },
+    getUserData() {
+      this.$store.dispatch("getAllUser")
+    }
   }
 };
 </script>

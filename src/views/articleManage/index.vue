@@ -31,7 +31,7 @@
           align="center"
         ></el-table-column>
         <el-table-column
-          prop="create_time"
+          prop="createTime"
           label="创建时间"
           align="center"
         ></el-table-column>
