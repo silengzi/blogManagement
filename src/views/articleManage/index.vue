@@ -60,6 +60,7 @@
               icon="el-icon-delete"
               size="mini"
               title="删除"
+              @click="deleteArticle(row)"
             ></el-button>
           </template>
         </el-table-column>
@@ -82,11 +83,11 @@
 </template>
 
 <script>
-import { mockData } from '../../../public/mock'
+// import { mockData } from '../../../public/mock'
 import articleForm from './articleForm'
 import articleDetail from './articleDetail'
 import blogManageTopNav from '@/components/blogManageTopNav/index.vue'
-import reqAllArticle from '@/api/index'
+import {reqDeleteArticle} from '@/api/index'
 export default {
   name: '',
   components: {
@@ -122,12 +123,16 @@ export default {
     changeScenes(scene) {
       this.scene = scene
     },
-    // async getArticleList() {
-    //   let result = await this.reqAllArticle()
-    //   console.log(result)
-    // }
     getAllArticleData() {
       this.$store.dispatch("getAllArticle")
+    },
+    deleteArticle() {
+      this.$confirm('确定删除?', '提示', {
+        type: 'warning'
+      }).then(async () => {
+        let result = await reqDeleteArticle()
+        console.log(result)
+      })
     }
   }
 };
