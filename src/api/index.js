@@ -1,14 +1,26 @@
 import request from './request'
 export const reqAllArticle = () => request({
     url: '/article/getAllArticle',
-    methods: 'get'
+    method: 'get'
 })
-// export const reqArticleByid = () => request({
-//     url: '/article/getArticleById'
-// })
-export const reqDeleteArticle = () => request({
+export const reqArticleById = (id) => request({
+    url: '/article/getArticleById/' + id,
+    method: 'get'
+})
+export const reqCreateArticle = (data) => request({
+    url: '/article/createArticle',
+    method: 'post',
+    data
+})
+export const reqUpdateArticle = (data) => request({
+    url: '/article/updateArticle',
+    method: 'post',
+    data
+})
+export const reqDeleteArticle = (formData) => request({
     url: '/article/deleteArticle',
-    methods: 'delete'
+    method: 'post',
+    data: formData
 })
 export const reqAllUser = () => request({
     url: '/user/getAllUser'

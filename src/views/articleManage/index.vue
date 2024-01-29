@@ -3,7 +3,7 @@
     <blogManageTopNav v-show="scene==0"></blogManageTopNav>
     <div v-show="scene==0">
       <div style="margin-bottom: 20px">
-        <el-button type="primary">添 加</el-button>
+        <el-button type="primary" @click="addArticle">添 加</el-button>
         <el-button type="danger">批量删除</el-button>
       </div>
       <el-table
@@ -33,6 +33,11 @@
         <el-table-column
           prop="createTime"
           label="创建时间"
+          align="center"
+        ></el-table-column>
+        <el-table-column
+          prop="updateTime"
+          label="更新时间"
           align="center"
         ></el-table-column>
         <el-table-column
@@ -74,16 +79,19 @@
         layout="prev, pager, next, jumper, ->, sizes, total"
       ></el-pagination>
     </div>
+    <articleAdd v-show="scene==3" ref="articleAdd" @cancelScene="cancelScene"></articleAdd>
     <articleForm
       v-show="scene==1"
       @changeScene="changeScene"
+      ref="articleEdit"
     ></articleForm>
-    <articleDetail v-show="scene==2" @changeScenes="changeScenes"></articleDetail>
+    <articleDetail v-show="scene==2" @changeScenes="changeScenes" ref="articleDetail"></articleDetail>
   </div>
 </template>
 
 <script>
 // import { mockData } from '../../../public/mock'
+import articleAdd from './articleAdd'
 import articleForm from './articleForm'
 import articleDetail from './articleDetail'
 import blogManageTopNav from '@/components/blogManageTopNav/index.vue'
@@ -92,6 +100,7 @@ export default {
   name: '',
   components: {
     blogManageTopNav,
+    articleAdd,
     articleForm,
     articleDetail,
   },
@@ -111,11 +120,18 @@ export default {
     this.getAllArticleData()
   },
   methods: {
+    addArticle() {
+      this.scene = 3
+      // this.getAllArticleData()
+      // this.$refs.articleAdd.createArticle()
+    },
     editArticle(row) {
       this.scene = 1
+      this.$refs.articleEdit.getArticleDetail(row.id)
     },
     handleDetail(row) {
       this.scene = 2
+      this.$refs.articleDetail.getArticleById(row.id)
     },
     changeScene({scene}) {
       this.scene = scene
@@ -123,15 +139,27 @@ export default {
     changeScenes(scene) {
       this.scene = scene
     },
+    cancelScene(scene) {
+      this.scene = scene
+    },
     getAllArticleData() {
       this.$store.dispatch("getAllArticle")
     },
-    deleteArticle() {
+    deleteArticle(row) {
       this.$confirm('确定删除?', '提示', {
         type: 'warning'
       }).then(async () => {
-        let result = await reqDeleteArticle()
-        console.log(result)
+        const formData = new FormData()
+        formData.append('id', row.id)
+        let result = await reqDeleteArticle(formData)
+        let res = result.data
+        // console.log(res)
+        if (res.status == 1) {
+          this.$message.success(res.message)
+        }
+        this.getAllArticleData()
+      }).catch(() => {
+        this.$message.info('已取消删除')
       })
     }
   }
