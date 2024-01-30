@@ -35,8 +35,7 @@ export default {
         // this.$message.success(res.message)
         let title = res.data.title
         let content = res.data.content
-        this.text = `# ${title}
-    ${content}`
+        this.text = `# ${title}\n${content}`
       }
     }
   },

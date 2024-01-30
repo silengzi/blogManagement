@@ -21,8 +21,11 @@ export default new Vuex.Store({
   },
   actions: {
     // 文章管理列表获取全部文章
-    async getAllArticle({commit, state}) {
-      let result = await reqAllArticle()
+    async getAllArticle({commit, state}, route) {
+      let data = {
+        userName: route.query.userName
+      }
+      let result = await reqAllArticle(data)
       let res = result.data
       // console.log(result)
       if(res.status == 1) {

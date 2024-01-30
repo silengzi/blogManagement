@@ -1,7 +1,8 @@
 import request from './request'
-export const reqAllArticle = () => request({
+export const reqAllArticle = (data) => request({
     url: '/article/getAllArticle',
-    method: 'get'
+    method: 'get',
+    params: data,
 })
 export const reqArticleById = (id) => request({
     url: '/article/getArticleById/' + id,

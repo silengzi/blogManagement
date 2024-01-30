@@ -34,7 +34,7 @@
     </div> -->
     <div class="content">
       <v-md-editor
-        v-model="text"
+        v-model="article.content"
         label="请输入文章内容"
       ></v-md-editor>
     </div>
@@ -55,7 +55,6 @@ export default {
   name: '',
   data() {
     return {
-      text: '',
       article: {
         title: '',
         summary: '',
@@ -76,16 +75,16 @@ export default {
       //     "content": "## 新增文章详情 ```js test ```",
       //     "img": "https://img2.baidu.com/it/u=2308390603,343143142&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=644"
       // }
-      this.article.content = `\n ${this.text}`
       let result = await reqCreateArticle(this.article)
       let res = result.data
       if (res.status == 1) {
-        console.log(res.data)
+        // console.log(res.data)
         this.$message.success(res.message)
         // this.text = `${this.article.content}`
         // console.log(this.text)
         // res.data = this.text
       }
+      this.$emit('cancelScene', 0)
     },
     cancel() {
       this.$emit('cancelScene', 0)

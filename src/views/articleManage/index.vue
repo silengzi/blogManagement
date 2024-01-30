@@ -135,15 +135,17 @@ export default {
     },
     changeScene({scene}) {
       this.scene = scene
+      this.getAllArticleData()
     },
     changeScenes(scene) {
       this.scene = scene
     },
     cancelScene(scene) {
       this.scene = scene
+      this.getAllArticleData()
     },
     getAllArticleData() {
-      this.$store.dispatch("getAllArticle")
+      this.$store.dispatch("getAllArticle", this.$route)
     },
     deleteArticle(row) {
       this.$confirm('确定删除?', '提示', {

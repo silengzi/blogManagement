@@ -7,7 +7,7 @@
             <div class="summary">
                 <el-input type="text" v-model="articleEdit.summary"></el-input>
             </div>
-            <v-md-editor v-model="text" min-height="700px"></v-md-editor>
+            <v-md-editor v-model="articleEdit.content" min-height="700px"></v-md-editor>
         </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="updateArticle">保存</el-button>
@@ -22,12 +22,11 @@ export default {
     name:'',
     data() {
         return {
-            text: '',
             articleEdit: {
+                id: null,
                 title: '',
                 summary: '',
                 content: '',
-                img: ''
             }
         };
     },
@@ -40,19 +39,19 @@ export default {
             let res = result.data
             if(res.status == 1) {
                 let data = res.data
+                this.articleEdit.id = id
                 this.articleEdit.title = data.title
                 this.articleEdit.summary = data.summary
-                this.text = `${data.content}`
+                this.articleEdit.content = data.content
             }
         },
         async updateArticle() {
-            this.articleEdit.content = `\n ${this.text}`
             let result = await reqUpdateArticle(this.articleEdit)
             let res = result.data
-                console.log(result)
             if(res.status == 1) {
                 this.$message.success(res.message)
             }
+            this.$emit("changeScene", {scene: 0})
         },
         cancel() {
             this.$emit("changeScene", {scene: 0})
