@@ -27,8 +27,13 @@ export default {
     goBack() {
       this.$emit("changeScenes", 0)
     },
-    async getArticleById(id) {
-      let result = await reqArticleById(id)
+    async getArticleById(userName, id) {
+        let data = {
+            id: id,
+            userName: userName,
+        }
+        console.log(data)
+      let result = await reqArticleById(data)
       let res = result.data
     //   console.log(res)
       if (res.status == 1) {

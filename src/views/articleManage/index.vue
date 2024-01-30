@@ -131,7 +131,9 @@ export default {
     },
     handleDetail(row) {
       this.scene = 2
-      this.$refs.articleDetail.getArticleById(row.id)
+      
+      console.log(row)
+      this.$refs.articleDetail.getArticleById(row.userName, row.id)
     },
     changeScene({scene}) {
       this.scene = scene

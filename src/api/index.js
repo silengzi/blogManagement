@@ -4,9 +4,10 @@ export const reqAllArticle = (data) => request({
     method: 'get',
     params: data,
 })
-export const reqArticleById = (id) => request({
-    url: '/article/getArticleById/' + id,
-    method: 'get'
+export const reqArticleById = (data) => request({
+    url: '/article/getArticleById',
+    method: 'get',
+    params: data,
 })
 export const reqCreateArticle = (data) => request({
     url: '/article/createArticle',
