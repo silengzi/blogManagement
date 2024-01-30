@@ -127,13 +127,13 @@ export default {
     },
     editArticle(row) {
       this.scene = 1
-      this.$refs.articleEdit.getArticleDetail(row.id)
+      this.$refs.articleEdit.getArticleDetail(this.$route.query.userName, row.id)
     },
     handleDetail(row) {
       this.scene = 2
       
       console.log(row)
-      this.$refs.articleDetail.getArticleById(row.userName, row.id)
+      this.$refs.articleDetail.getArticleById(this.$route.query.userName, row.id)
     },
     changeScene({scene}) {
       this.scene = scene
@@ -153,9 +153,11 @@ export default {
       this.$confirm('确定删除?', '提示', {
         type: 'warning'
       }).then(async () => {
-        const formData = new FormData()
-        formData.append('id', row.id)
-        let result = await reqDeleteArticle(formData)
+        let data = {
+          id: row.id,
+          userName: this.$route.query.userName
+        }
+        let result = await reqDeleteArticle(data)
         let res = result.data
         // console.log(res)
         if (res.status == 1) {

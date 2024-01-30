@@ -19,10 +19,10 @@ export const reqUpdateArticle = (data) => request({
     method: 'post',
     data
 })
-export const reqDeleteArticle = (formData) => request({
+export const reqDeleteArticle = (data) => request({
     url: '/article/deleteArticle',
     method: 'post',
-    data: formData
+    data
 })
 export const reqAllUser = () => request({
     url: '/user/getAllUser'

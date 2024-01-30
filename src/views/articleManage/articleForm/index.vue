@@ -27,6 +27,7 @@ export default {
                 title: '',
                 summary: '',
                 content: '',
+                userName: this.$route.query.userName
             }
         };
     },
@@ -34,8 +35,12 @@ export default {
         // getArticleDetail()
     },  
     methods: {
-        async getArticleDetail(id) {
-            let result = await reqArticleById(id)
+        async getArticleDetail(userName, id) {
+            let data = {
+                id: id,
+                userName: userName,
+            }
+            let result = await reqArticleById(data)
             let res = result.data
             if(res.status == 1) {
                 let data = res.data

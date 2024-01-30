@@ -59,7 +59,8 @@ export default {
         title: '',
         summary: '',
         content: '',
-        img: ''
+        img: '',
+        userName: this.$route.query.userName
       },
     };
   },
